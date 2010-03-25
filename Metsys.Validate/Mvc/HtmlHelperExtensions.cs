@@ -62,7 +62,7 @@ namespace Metsys.Validate.Mvc
                 {
                     if (!string.IsNullOrEmpty(data.Message))
                     {
-                        sb.AppendFormat("message:'{0}',", JsHelper.Escape(data.Message));
+                        sb.AppendFormat("message:'{0}',", JsHelper.Escape(Validator.MessageCallback(data.Message)));
                     }
                     sb.Insert(start, '{');                   
                     sb.Remove(sb.Length - 1, 1);

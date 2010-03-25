@@ -118,6 +118,7 @@
                 {
                     $field.siblings('.error').remove();
                     $field.removeClass('error');
+                    if (opts.errorOnParent) { $field.parent().removeClass('error'); }                    
                 }
             }
             this.validator = v;

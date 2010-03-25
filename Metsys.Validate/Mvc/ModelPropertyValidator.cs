@@ -23,7 +23,7 @@ namespace Metsys.Validate.Mvc
             {
                 yield return new ModelValidationResult
                                  {                                     
-                                     Message = _message
+                                     Message = Validator.MessageCallback(_message)
                                  };
             }
         }       
