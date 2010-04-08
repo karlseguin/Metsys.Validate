@@ -16,12 +16,37 @@
         <label for="Maximum">maximum</label>
         <input type="text" name="Maximum" />
     </div>
-    
+
     <div class="item">
         <label for="MinMax">min/max</label>
         <input type="text" name="MinMax" />
-    </div>    
-   
+    </div>
+
+    <div class="item">
+        <label for="Email">email</label>
+        <input type="text" name="Email" />
+    </div>
+
+    <div class="item">
+        <label for="Url">url</label>
+        <input type="text" name="Url" />
+    </div>
+
+    <div class="item">
+        <label for="CreditCard">credit card</label>
+        <input type="text" name="CreditCard" />
+    </div>
+
+    <div class="item">
+        <label for="Number">number</label>
+        <input type="text" name="Number" />
+    </div>
+
+    <div class="item">
+        <label for="Digits">digits</label>
+        <input type="text" name="Digits" />
+    </div>
+
     <input type="submit" value="next" />
 </form>
 

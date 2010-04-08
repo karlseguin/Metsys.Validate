@@ -1,14 +1,17 @@
-using System;
 using Metsys.Validate.Validators;
 
 namespace Metsys.Validate
 {
+    using System;
+
     public interface IRuleConfiguration
     {
         IRuleConfiguration Required();
         IRuleConfiguration Length(int minimum);
         IRuleConfiguration Length(int? minimum, int? maximum);
+        IRuleConfiguration Pattern(ValidationPattern pattern);
         IRuleConfiguration WithMessage(string message);
+        
     }
     
     public class RuleConfiguration : IRuleConfiguration
@@ -34,6 +37,12 @@ namespace Metsys.Validate
         public IRuleConfiguration Length(int? minimum, int? maximum)
         {
             _data.Validators.Add(new StringLengthValidator(minimum, maximum));
+            return this;
+        }
+
+        public IRuleConfiguration Pattern(ValidationPattern pattern)
+        {
+            _data.Validators.Add(new CannedPatternValidator(pattern));
             return this;
         }
 

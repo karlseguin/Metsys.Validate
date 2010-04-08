@@ -54,7 +54,9 @@
     <Compile Include="Mvc\ValidatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyValidatorData.cs" />
+    <Compile Include="ValidationPattern.cs" />
     <Compile Include="Validator.cs" />
+    <Compile Include="Validators\CannedPatternValidator.cs" />
     <Compile Include="Validators\IDoJavascript.cs" />
     <Compile Include="Validators\IValidator.cs" />
     <Compile Include="Validators\RequiredValidator.cs" />
