@@ -1,0 +1,19 @@
+<viewdata model="Step2" />
+<div class="desc">
+    This step does the same as Step1, but shows how validation can be enabled for nested objects. 
+    Simply specify the prefix name to the RulesFor extension method:
+    
+    <code>Html.RuleFor&lt;Step1&gt;("Step1")</code>
+</div>
+<form method="post" action="/Home/Step2" id="login">
+    !{Html.EditorFor(model => model.Step1)}
+    <input type="submit" value="next" />
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{    
+    var settings = !{Html.RuleFor<Step1>("Step1")};    
+    $('#login').validate(settings);
+});
+</script>

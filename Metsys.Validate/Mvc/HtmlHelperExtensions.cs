@@ -10,57 +10,68 @@ namespace Metsys.Validate.Mvc
     {
         public static string RuleFor<T>(this HtmlHelper html)
         {
+            return html.RuleFor<T>(null);
+        }
+        public static string RuleFor<T>(this HtmlHelper html, string prefix)
+        {
             var validations = Validator.RulesFor<T>();
             if (validations == null || validations.Rules.Count == 0) { return "{}"; }
-            
-            var rulesBuilder = new StringBuilder();
-            var messagesBuilder = new StringBuilder();
+
+            var context = new HtmlRuleContext
+                              {
+                                  RulesBuilder = new StringBuilder(),
+                                  MessageBuilder = new StringBuilder(),
+                                  Prefix = prefix,
+                              };
 
             foreach (var kvp in validations.Rules)
             {
-                RuleFor(rulesBuilder, kvp.Key, kvp.Value.Validators);
-                MessagesFor(messagesBuilder, kvp.Key, kvp.Value.Message);
-                rulesBuilder.Append(',');                
+                context.Key = kvp.Key;
+                context.Data = kvp.Value;
+                RuleFor(context);
+                MessagesFor(context);
+                context.RulesBuilder.Append(',');                
             }
-            if (rulesBuilder.Length > 1)
+            if (context.RulesBuilder.Length > 1)
             {
-                rulesBuilder.Insert(0, "rules:{");
-                rulesBuilder.Remove(rulesBuilder.Length - 1, 1);
-                rulesBuilder.Append('}');
+                context.RulesBuilder.Insert(0, "rules:{");
+                context.RulesBuilder.Remove(context.RulesBuilder.Length - 1, 1);
+                context.RulesBuilder.Append('}');
             }
-            if (messagesBuilder.Length > 1)
+            if (context.MessageBuilder.Length > 1)
             {
-                messagesBuilder.Insert(0, ", messages:{");
-                messagesBuilder.Remove(messagesBuilder.Length - 1, 1);
-                messagesBuilder.Append('}');
+                context.MessageBuilder.Insert(0, ", messages:{");
+                context.MessageBuilder.Remove(context.MessageBuilder.Length - 1, 1);
+                context.MessageBuilder.Append('}');
             }
-            return string.Concat('{', rulesBuilder.ToString(), messagesBuilder.ToString(), '}');
+            return string.Concat('{', context.RulesBuilder.ToString(), context.MessageBuilder.ToString(), '}');
         }
 
  
-        private static void RuleFor(StringBuilder sb , string name, IEnumerable<IValidator> validators)
+        private static void RuleFor(HtmlRuleContext context)
         {
+            var sb = context.RulesBuilder;
             var startPosition = sb.Length;
-            foreach(var validator in validators)
+            foreach(var validator in context.Data.Validators)
             {
                 if (!(validator is IDoJavascript)) { continue; }
                 foreach (var property in ((IDoJavascript)validator).ToJson())
                 {
-                    sb.AppendFormat("{0}:{1}", property.Key, property.Value);
+                    sb.AppendFormat("{0}:{1}",property.Key, property.Value);
                     sb.Append(",");
                 }                                
             }
             if (sb.Length > 0)
             {
                 sb.Remove(sb.Length - 1, 1);
-                sb.Insert(startPosition, string.Concat(name, ":{"));                
+                sb.Insert(startPosition, string.Concat(SafeKey(context), ":{"));                
                 sb.Append('}');
             }         
         }
-        private static void MessagesFor(StringBuilder sb, string key, string message)
+        private static void MessagesFor(HtmlRuleContext context)
         {
-            if (string.IsNullOrEmpty(message)) { return; }
-            sb.AppendFormat("{0}: '{1}',", key, Escape(message));
+            if (string.IsNullOrEmpty(context.Data.Message)) { return; }
+            context.MessageBuilder.AppendFormat("{0}: '{1}',", SafeKey(context), Escape(context.Data.Message));
         }
 
 
@@ -68,6 +79,10 @@ namespace Metsys.Validate.Mvc
         {
             return string.IsNullOrEmpty(@string) ? string.Empty : @string.Replace("'", "\\'");
         }
+        private static string SafeKey(HtmlRuleContext context)
+        {
+            return string.IsNullOrEmpty(context.Prefix) ? context.Key : string.Format("\"{0}.{1}\"", context.Prefix, context.Key);            
+        }        
 
     }
 }

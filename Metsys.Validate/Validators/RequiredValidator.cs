@@ -6,7 +6,6 @@ namespace Metsys.Validate.Validators
     {
         private readonly static KeyValuePair<string, string> _json = new KeyValuePair<string, string>("required", "true");
 
-        public string Message { get; set; }
         public IEnumerable<KeyValuePair<string, string>> ToJson()
         {
             yield return _json;

@@ -24,7 +24,9 @@ namespace Metsys.Validate.MvcSample
             var viewFactory = new SparkViewFactory(new SparkSettings()
                 .AddNamespace("System")
                 .AddNamespace("System.Collections.Generic")
-                .AddNamespace("Metsys.Validate.Mvc") 
+                .AddNamespace("System.Web.Mvc.Html")
+                .AddNamespace("Metsys.Validate.Mvc")
+                .AddNamespace("Metsys.Validate.MvcSample")
                 .SetAutomaticEncoding(true)
                 .SetDebug(_debug));
 

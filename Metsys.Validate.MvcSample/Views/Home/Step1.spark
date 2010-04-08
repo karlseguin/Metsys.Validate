@@ -1,3 +1,6 @@
+<div class="desc">
+   A simple example that shows how to generate client-side validation for a form
+</div>
 <form method="post" action="/Home/Step1" id="login">
     <div class="item">
         <label for="Required">required</label>
@@ -19,7 +22,7 @@
         <input type="text" name="MinMax" />
     </div>    
    
-    <input type="submit" value="login" />
+    <input type="submit" value="next" />
 </form>
 
 <script type="text/javascript">

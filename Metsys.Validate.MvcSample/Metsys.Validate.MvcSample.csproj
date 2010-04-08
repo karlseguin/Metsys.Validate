@@ -53,6 +53,7 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Models\Step2.cs" />
     <Compile Include="Code\Validation\Step1Validator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -77,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Home\Step2.spark" />
     <None Include="Views\Home\Step1.spark" />
     <None Include="Views\Shared\Application.spark" />
   </ItemGroup>

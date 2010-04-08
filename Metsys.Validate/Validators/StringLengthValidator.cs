@@ -7,8 +7,6 @@ namespace Metsys.Validate.Validators
         public int? _minimumLength;
         internal int? _maximumLength;
 
-        public string Message { get; set; }
-        
         public StringLengthValidator(int? minimumLength, int? maximumLength)
         {
             _minimumLength = minimumLength;

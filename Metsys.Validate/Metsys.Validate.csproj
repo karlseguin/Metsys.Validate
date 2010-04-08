@@ -47,6 +47,7 @@
     <Compile Include="ClassValidatorData.cs" />
     <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="IRuleConfiguration.cs" />
+    <Compile Include="Mvc\HtmlRuleContext.cs" />
     <Compile Include="Mvc\MvcModelValidator.cs" />
     <Compile Include="Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\MvcPropertyValidator.cs" />
