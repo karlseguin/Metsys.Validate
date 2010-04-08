@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metsys.Validate", "Metsys.Validate.csproj", "{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metsys.Validate.Tests", "..\Metsys.Validate.Tests\Metsys.Validate.Tests.csproj", "{930A45A2-DBC9-47F5-AFE4-4C0C14B87156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metsys.Validate.MvcSample", "..\Metsys.Validate.MvcSample\Metsys.Validate.MvcSample.csproj", "{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930A45A2-DBC9-47F5-AFE4-4C0C14B87156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930A45A2-DBC9-47F5-AFE4-4C0C14B87156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930A45A2-DBC9-47F5-AFE4-4C0C14B87156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930A45A2-DBC9-47F5-AFE4-4C0C14B87156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

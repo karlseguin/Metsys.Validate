@@ -1,0 +1,31 @@
+<form method="post" action="#" id="login">
+    <div class="item">
+        <label for="Required">required</label>
+        <input type="text" name="Required" />
+    </div>
+    
+    <div class="item">
+        <label for="Minimum">minimum</label>
+        <input type="text" name="Minimum" />
+    </div>
+    
+    <div class="item">
+        <label for="Maximum">maximum</label>
+        <input type="text" name="Maximum" />
+    </div>
+    
+    <div class="item">
+        <label for="MinMax">min/max</label>
+        <input type="text" name="MinMax" />
+    </div>    
+   
+    <input type="submit" value="login" />
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{    
+    var settings = !{Html.RuleFor<Step1>()};    
+    $('#login').validate(settings);
+});
+</script>

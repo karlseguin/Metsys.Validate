@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head> 
+    <title>Metsys.Validate Sample MVC Application</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" type="text/css" />
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.validate.js"></script>
+    <use content="head"></use>    
+</head>
+<body>
+    <div id="header">
+        <div id="menu"></div>
+     </div>
+     <div id="main">
+        <use content="view" />
+     </div>
+</body>
+</html>
