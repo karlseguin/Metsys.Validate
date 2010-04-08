@@ -9,10 +9,7 @@ namespace Metsys.Validate
 
         public IList<IValidator> Validators
         {
-            get
-            {
-                return _validators;
-            }
+            get { return _validators; }
         }
         public string Message{ get; set;}
     }

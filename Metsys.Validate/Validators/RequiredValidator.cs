@@ -6,11 +6,11 @@ namespace Metsys.Validate.Validators
     {
         private readonly static KeyValuePair<string, string> _json = new KeyValuePair<string, string>("required", "true");
 
+        public string Message { get; set; }
         public IEnumerable<KeyValuePair<string, string>> ToJson()
         {
             yield return _json;
         }
-
         public bool IsValid(object value)
         {
             if (value == null)
@@ -23,7 +23,6 @@ namespace Metsys.Validate.Validators
             }
             return true;
         }
-
-
     }
+
 }

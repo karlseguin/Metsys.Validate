@@ -2,9 +2,11 @@
 using Spark.Web.Mvc;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using Metsys.Validate.Mvc;
 namespace Metsys.Validate.MvcSample
 {
+    
+
     public class MvcApplication : System.Web.HttpApplication
     {
 #if DEBUG
@@ -16,7 +18,9 @@ namespace Metsys.Validate.MvcSample
         protected void Application_Start()
         {
             Validator.InitializeFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
-        
+            ModelValidatorProviders.Providers.Clear();
+            ModelValidatorProviders.Providers.Add(new ValidatorProvider());
+            
             var viewFactory = new SparkViewFactory(new SparkSettings()
                 .AddNamespace("System")
                 .AddNamespace("System.Collections.Generic")
@@ -24,8 +28,8 @@ namespace Metsys.Validate.MvcSample
                 .SetAutomaticEncoding(true)
                 .SetDebug(_debug));
 
-            ViewEngines.Engines.Add(viewFactory);
-            
+        
+            ViewEngines.Engines.Add(viewFactory);           
             RegisterRoutes(RouteTable.Routes);
         }
 

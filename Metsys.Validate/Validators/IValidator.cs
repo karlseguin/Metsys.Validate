@@ -3,5 +3,6 @@ namespace Metsys.Validate.Validators
     public interface IValidator
     {
         bool IsValid(object value);
+        string Message{ get; }  
     }
 }

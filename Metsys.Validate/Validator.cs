@@ -17,9 +17,13 @@ namespace Metsys.Validate
         }
         
         public static ClassValidatorData RulesFor<T>()
-        {           
+        {
+            return RulesFor(typeof (T));
+        }
+        public static ClassValidatorData RulesFor(Type type)
+        {
             ClassValidatorData data;
-            return !_validator.TryGetValue(typeof(T), out data) ? null : data;
+            return !_validator.TryGetValue(type, out data) ? null : data;
         }
     }
 }
