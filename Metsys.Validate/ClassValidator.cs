@@ -1,8 +1,9 @@
 using System;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace Metsys.Validate
-{    
+{
     internal interface IClassValidator
     {
         ClassValidatorData Data{ get;}
@@ -19,8 +20,13 @@ namespace Metsys.Validate
 
         protected IRuleConfiguration RuleFor(Expression<Func<T, object>> expression)
         {
+            var name = expression.GetName();            
+            if (!Data.Rules.ContainsKey(name))
+            {
+                Data.Rules.Add(name, new List<PropertyValidatorData>(1));
+            }
             var rules = new PropertyValidatorData();
-            Data.Rules.Add(expression.GetName(), rules);
+            Data.Rules[name].Add(rules);
             return new RuleConfiguration(rules);            
         }
     }

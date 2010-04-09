@@ -18,10 +18,30 @@ namespace Metsys.Validate.MvcSample.Controllers
             }
             return Redirect("/Home/Step2");
         }
-
+        [AcceptVerbs(HttpVerbs.Get)]
         public ViewResult Step2()
         {            
             return View();
-        }        
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Step2(Step2 step2)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            return Redirect("/Home/Step3");
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ViewResult Step3()
+        {
+            return View();
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Step3(Step3 step3)
+        {
+            return View();            
+        }     
     }
 }

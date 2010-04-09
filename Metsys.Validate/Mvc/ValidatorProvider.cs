@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace Metsys.Validate.Mvc
 {
@@ -16,22 +17,25 @@ namespace Metsys.Validate.Mvc
 
         private static IEnumerable<ModelValidator> GetPropertyValidators(ModelMetadata metaData, ControllerContext context)
         {
-            var rules = Validator.RulesFor(metaData.ContainerType);            
-            if (rules == null) { return null; }
+            var rules = Validator.RulesFor(metaData.ContainerType);
+            if (rules == null) { return Enumerable.Empty<ModelValidator>(); }
 
-            PropertyValidatorData data;
+            IList<PropertyValidatorData> data;
             if (!rules.Rules.TryGetValue(metaData.PropertyName, out data))
             {
-                return null;                
+                return Enumerable.Empty<ModelValidator>();                
             }            
             return YieldValidators(data, metaData, context);
         }
 
-        private static IEnumerable<ModelValidator> YieldValidators(PropertyValidatorData data, ModelMetadata metaData , ControllerContext context)
+        private static IEnumerable<ModelValidator> YieldValidators(IEnumerable<PropertyValidatorData> data, ModelMetadata metaData, ControllerContext context)
         {
-            foreach(var validator in data.Validators)
+            foreach(var d in data)
             {
-                yield return new MvcPropertyValidator(data.Message, validator, metaData, context);
+                foreach (var validator in d.Validators)
+                {
+                    yield return new MvcPropertyValidator(d.Message, validator, metaData, context);
+                }
             }
         }
     }

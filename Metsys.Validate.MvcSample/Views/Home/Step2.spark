@@ -14,6 +14,6 @@
 $(document).ready(function()
 {    
     var settings = !{Html.RuleFor<Step1>("Step1")};    
-    $('#login').validate(settings);
+    $('#login').validator(settings);
 });
 </script>

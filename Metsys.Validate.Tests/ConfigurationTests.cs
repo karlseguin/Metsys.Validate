@@ -14,13 +14,13 @@ namespace Metsys.Validate.Tests
         public void RegistersASingleValidator()
         {
             var data = Validator.RulesFor<Fake>().Rules["Name"];
-            Assert.Equal(1, data.Validators.Count);
-            Assert.IsType(typeof(RequiredValidator), data.Validators[0]);
+            Assert.Equal(1, data[0].Validators.Count);
+            Assert.IsType(typeof(RequiredValidator), data[0].Validators[0]);
         }
         [Fact]
         public void ValidationMessageIsSet()
         {
-            var data = Validator.RulesFor<Fake>().Rules["Name"];
+            var data = Validator.RulesFor<Fake>().Rules["Name"][0];
             Assert.Equal("Fix your mess!", data.Message);
         }
         

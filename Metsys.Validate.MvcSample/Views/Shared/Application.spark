@@ -4,7 +4,7 @@
     <title>Metsys.Validate Sample MVC Application</title>
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css" />
     <script type="text/javascript" src="/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="/assets/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.validator.js"></script>
     <use content="head"></use>    
 </head>
 <body>

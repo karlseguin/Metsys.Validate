@@ -17,11 +17,11 @@ namespace Metsys.Validate.Validators
         {
             if (_minimumLength != null && _minimumLength != 0)
             {
-                yield return new KeyValuePair<string, string>("minlength", _minimumLength.ToString());
+                yield return new KeyValuePair<string, string>("min", _minimumLength.ToString());
             }
             if (_maximumLength != null)
             {
-                yield return new KeyValuePair<string, string>("maxlength", _maximumLength.ToString());
+                yield return new KeyValuePair<string, string>("max", _maximumLength.ToString());
             }            
         }
 

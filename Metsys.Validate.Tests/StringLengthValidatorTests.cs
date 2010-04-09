@@ -38,34 +38,34 @@ namespace Mogade.Tests.ValidatorTests
         [Fact]
         public void MinimumJsonNotReturnedIfNull()
         {
-            Assert.Equal(0, new StringLengthValidator(null, 4).ToJson().Count(c => c.Key == "minlength"));
+            Assert.Equal(0, new StringLengthValidator(null, 4).ToJson().Count(c => c.Key == "min"));
         }
         [Fact]
         public void MinimumJsonNotReturnedIfZero()
         {
-            Assert.Equal(0, new StringLengthValidator(0, 4).ToJson().Count(c => c.Key == "minlength"));
+            Assert.Equal(0, new StringLengthValidator(0, 4).ToJson().Count(c => c.Key == "min"));
         }
         [Fact]
         public void MaximumJsonNotReturnedIfNull()
         {
-            Assert.Equal(0, new StringLengthValidator(0, null).ToJson().Count(c => c.Key == "maxlength"));
+            Assert.Equal(0, new StringLengthValidator(0, null).ToJson().Count(c => c.Key == "max"));
         }
         [Fact]
         public void ReturnsMinimumJson()
         {
-            Assert.Equal(1, new StringLengthValidator(4, null).ToJson().Count(c => c.Key == "minlength" && c.Value == "4"));
+            Assert.Equal(1, new StringLengthValidator(4, null).ToJson().Count(c => c.Key == "min" && c.Value == "4"));
         }
         [Fact]
         public void ReturnsMaximumJson()
         {
-            Assert.Equal(1, new StringLengthValidator(null, 5).ToJson().Count(c => c.Key == "maxlength" && c.Value == "5"));
+            Assert.Equal(1, new StringLengthValidator(null, 5).ToJson().Count(c => c.Key == "max" && c.Value == "5"));
         }
         [Fact]
         public void ReturnsBothMinimumAndMaximumJson()
         {
             var validator = new StringLengthValidator(2, 5).ToJson();
-            Assert.Equal(1, validator.Count(c => c.Key == "maxlength" && c.Value == "5"));
-            Assert.Equal(1, validator.Count(c => c.Key == "minlength" && c.Value == "2"));
+            Assert.Equal(1, validator.Count(c => c.Key == "max" && c.Value == "5"));
+            Assert.Equal(1, validator.Count(c => c.Key == "min" && c.Value == "2"));
         }
     }
 }

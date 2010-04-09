@@ -32,7 +32,7 @@ namespace Metsys.Validate.Tests
         public void ProperPropertiesAreReturnedForJson()
         {
             Assert.Equal("required", new RequiredValidator().ToJson().First().Key);
-            Assert.Equal("true", new RequiredValidator().ToJson().First().Key);
+            Assert.Equal("true", new RequiredValidator().ToJson().First().Value);
         }
     }
 }

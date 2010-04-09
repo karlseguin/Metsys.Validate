@@ -4,8 +4,8 @@ namespace Metsys.Validate
 {
     public class ClassValidatorData
     {
-        private readonly IDictionary<string, PropertyValidatorData> _rules = new Dictionary<string, PropertyValidatorData>();
-        public IDictionary<string, PropertyValidatorData> Rules
+        private readonly IDictionary<string, IList<PropertyValidatorData>> _rules = new Dictionary<string, IList<PropertyValidatorData>>();
+        public IDictionary<string, IList<PropertyValidatorData>> Rules
         {
             get { return _rules; }
         }

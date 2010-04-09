@@ -1,4 +1,5 @@
 using System.Text;
+using System.Collections.Generic;
 
 namespace Metsys.Validate.Mvc
 {
@@ -6,8 +7,7 @@ namespace Metsys.Validate.Mvc
     {
         public string Prefix { get; set; }
         public string Key{ get; set;}
-        public StringBuilder RulesBuilder { get; set; }
-        public StringBuilder MessageBuilder { get; set; } 
-        public PropertyValidatorData Data{ get; set;}
+        public StringBuilder RulesBuilder { get; set; }        
+        public IList<PropertyValidatorData> Data{ get; set;}
     }
 }

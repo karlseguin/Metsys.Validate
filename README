@@ -2,5 +2,4 @@ Metsys.Validate is a validation framework for ASP.NET MVC.
 
 The goals of the library are:
  - To provide a fluent interface
- - To treat client-side validation as a first-class citizen (using jquery.validate):
-   http://bassistance.de/jquery-plugins/jquery-plugin-validation/
+ - To treat client-side validation as a first-class citizen (using a custom jquery plugin)

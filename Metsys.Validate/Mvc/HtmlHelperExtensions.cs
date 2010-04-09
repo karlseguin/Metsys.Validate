@@ -19,8 +19,7 @@ namespace Metsys.Validate.Mvc
 
             var context = new HtmlRuleContext
                               {
-                                  RulesBuilder = new StringBuilder(),
-                                  MessageBuilder = new StringBuilder(),
+                                  RulesBuilder = new StringBuilder(),                                  
                                   Prefix = prefix,
                               };
 
@@ -28,8 +27,7 @@ namespace Metsys.Validate.Mvc
             {
                 context.Key = kvp.Key;
                 context.Data = kvp.Value;
-                RuleFor(context);
-                MessagesFor(context);
+                RuleFor(context);                
                 context.RulesBuilder.Append(',');                
             }
             if (context.RulesBuilder.Length > 1)
@@ -38,13 +36,7 @@ namespace Metsys.Validate.Mvc
                 context.RulesBuilder.Remove(context.RulesBuilder.Length - 1, 1);
                 context.RulesBuilder.Append('}');
             }
-            if (context.MessageBuilder.Length > 1)
-            {
-                context.MessageBuilder.Insert(0, ", messages:{");
-                context.MessageBuilder.Remove(context.MessageBuilder.Length - 1, 1);
-                context.MessageBuilder.Append('}');
-            }
-            return string.Concat('{', context.RulesBuilder.ToString(), context.MessageBuilder.ToString(), '}');
+            return string.Concat('{', context.RulesBuilder.ToString(), '}');
         }
 
  
@@ -52,28 +44,39 @@ namespace Metsys.Validate.Mvc
         {
             var sb = context.RulesBuilder;
             var startPosition = sb.Length;
-            foreach(var validator in context.Data.Validators)
+            foreach(var data in context.Data)
             {
-                if (!(validator is IDoJavascript)) { continue; }
-                foreach (var property in ((IDoJavascript)validator).ToJson())
+                var found = false;
+                var start = sb.Length;
+                foreach (var validator in data.Validators)
                 {
-                    sb.AppendFormat("{0}:{1}",property.Key, property.Value);
-                    sb.Append(",");
-                }                                
+                    if (!(validator is IDoJavascript)) { continue; }
+                    foreach (var property in ((IDoJavascript) validator).ToJson())
+                    {
+                        sb.AppendFormat("{0}:{1}", property.Key, property.Value);
+                        sb.Append(",");
+                        found = true;
+                    }
+                }
+                if (found)
+                {
+                    if (!string.IsNullOrEmpty(data.Message))
+                    {
+                        sb.AppendFormat("message:'{0}',", Escape(data.Message));
+                    }
+                    sb.Insert(start, '{');                   
+                    sb.Remove(sb.Length - 1, 1);
+                    sb.Append("},");
+                }                
             }
-            if (sb.Length > 0)
-            {
+            if (sb.Length > startPosition)
+            { 
+                sb.Insert(startPosition, string.Concat(SafeKey(context), ":["));
                 sb.Remove(sb.Length - 1, 1);
-                sb.Insert(startPosition, string.Concat(SafeKey(context), ":{"));                
-                sb.Append('}');
-            }         
+                sb.Append(']');
+            }
+        
         }
-        private static void MessagesFor(HtmlRuleContext context)
-        {
-            if (string.IsNullOrEmpty(context.Data.Message)) { return; }
-            context.MessageBuilder.AppendFormat("{0}: '{1}',", SafeKey(context), Escape(context.Data.Message));
-        }
-
 
         private static string Escape(string @string)
         {
