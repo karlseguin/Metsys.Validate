@@ -11,10 +11,6 @@ namespace Metsys.Validate.Mvc
         
         public MvcPropertyValidator(string message, IValidator validator, ModelMetadata metadata, ControllerContext controllerContext) : base(metadata, controllerContext)
         {
-            if (validator == null)
-            {
-                int x = 0;
-            }
             _validator = validator;
             _message = message;
         }
