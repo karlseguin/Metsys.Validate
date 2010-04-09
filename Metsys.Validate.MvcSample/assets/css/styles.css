@@ -9,7 +9,8 @@ input{border:1px solid #ddd;}
 #main{background:#fff;margin:10px;border:1px solid #e0e0e0;padding:10px;}
 
 form{width:500px;margin:0 auto;}
-form .item, .editor-field{position:relative;height:60px;}
+.editor-field{position:relative;height:40px;}
+form .item{position:relative;height:60px;}
 label{display:block;}
 input{padding:5px;}
 input:focus{-moz-box-shadow:0 0 5px #999;-webkit-box-shadow:0 0 5px #999;}

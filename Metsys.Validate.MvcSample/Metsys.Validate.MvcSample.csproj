@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Code\Models\Step2.cs" />
     <Compile Include="Code\Models\Step3.cs" />
+    <Compile Include="Code\Validation\SharedRules.cs" />
     <Compile Include="Code\Validation\Step1Validator.cs" />
     <Compile Include="Code\Validation\Step3Validator.cs" />
     <Compile Include="Controllers\HomeController.cs" />

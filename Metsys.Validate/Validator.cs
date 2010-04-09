@@ -11,7 +11,13 @@ namespace Metsys.Validate
         
         public static void InitializeFromAssembly(Assembly assembly)
         {            
-            assembly.GetExportedTypes().Where(t => typeof (IClassValidator).IsAssignableFrom(t))
+            var types = assembly.GetExportedTypes();
+
+            types.Where(t => typeof (RuleSet).IsAssignableFrom(t))
+                .ToList()
+                .ForEach(t => Activator.CreateInstance(t));
+            
+            types.Where(t => typeof (IClassValidator).IsAssignableFrom(t))
                 .ToList()
                 .ForEach(t => _validator.Add(t.BaseType.GetGenericArguments()[0], ((IClassValidator)Activator.CreateInstance(t)).Data));            
         }

@@ -19,15 +19,31 @@ namespace Metsys.Validate
         }
 
         protected IRuleConfiguration RuleFor(Expression<Func<T, object>> expression)
+        {            
+            var rule = new PropertyValidatorData();
+            AddRules(expression.GetName(), new[] { rule });
+            return new RuleConfiguration(rule);
+        }
+        protected void SharedRuleFor(Expression<Func<T, object>> expression, string sharedRuleName)
+        {            
+            var sharedRules = RuleSet.GetRules(sharedRuleName);
+            if (sharedRules == null)
+            {
+                throw new ArgumentException(string.Format("No shared rule with the name {0} exists", sharedRuleName));
+            }
+            AddRules(expression.GetName(), sharedRules);            
+        }   
+        
+        private void AddRules(string name, IEnumerable<PropertyValidatorData> rules)
         {
-            var name = expression.GetName();            
             if (!Data.Rules.ContainsKey(name))
             {
                 Data.Rules.Add(name, new List<PropertyValidatorData>(1));
             }
-            var rules = new PropertyValidatorData();
-            Data.Rules[name].Add(rules);
-            return new RuleConfiguration(rules);            
+            foreach(var rule in rules)
+            {
+                Data.Rules[name].Add(rule);
+            }
         }
     }
 }
