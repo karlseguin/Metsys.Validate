@@ -70,6 +70,7 @@
                     else if (rule.number) { isValid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value); }
                     else if (rule.digits) { isValid = /^\d+$/.test(value); }
                     else if (rule.creditcard) { isValid = v.validateCreditCard(value); }
+                    else if (rule.regex) { isValid = rule.regex.test(value); }
                                                                                 
                     if (!isValid) 
                     {

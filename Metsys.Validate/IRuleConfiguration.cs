@@ -1,4 +1,5 @@
 using Metsys.Validate.Validators;
+using System.Text.RegularExpressions;
 
 namespace Metsys.Validate
 {
@@ -10,6 +11,8 @@ namespace Metsys.Validate
         IRuleConfiguration Length(int minimum);
         IRuleConfiguration Length(int? minimum, int? maximum);
         IRuleConfiguration Pattern(ValidationPattern pattern);
+        IRuleConfiguration Pattern(string pattern);
+        IRuleConfiguration Pattern(Regex pattern);
         IRuleConfiguration WithMessage(string message);
         
     }
@@ -43,6 +46,17 @@ namespace Metsys.Validate
         public IRuleConfiguration Pattern(ValidationPattern pattern)
         {
             _data.Validators.Add(new CannedPatternValidator(pattern));
+            return this;
+        }
+
+        public IRuleConfiguration Pattern(string pattern)
+        {
+            return Pattern(new Regex(pattern, RegexOptions.IgnoreCase));
+        }
+
+        public IRuleConfiguration Pattern(Regex pattern)
+        {
+            _data.Validators.Add(new RegularExpressionValidator(pattern));
             return this;
         }
 

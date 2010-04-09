@@ -13,6 +13,7 @@ namespace Metsys.Validate.MvcSample.Validation
             RuleFor(u => u.Url).Required().Pattern(ValidationPattern.Url);
             RuleFor(u => u.Number).Required().Pattern(ValidationPattern.Number);
             RuleFor(u => u.Digits).Required().Pattern(ValidationPattern.Digits);
+            RuleFor(u => u.Regex).Required().Pattern("^(cat|dog)$").WithMessage("Must be 'cat' or 'dog'");
         }
     }
 }

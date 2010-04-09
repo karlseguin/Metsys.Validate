@@ -60,6 +60,7 @@
     <Compile Include="Validators\CannedPatternValidator.cs" />
     <Compile Include="Validators\IDoJavascript.cs" />
     <Compile Include="Validators\IValidator.cs" />
+    <Compile Include="Validators\RegularExpressionValidator.cs" />
     <Compile Include="Validators\RequiredValidator.cs" />
     <Compile Include="Validators\StringLengthValidator.cs" />
   </ItemGroup>

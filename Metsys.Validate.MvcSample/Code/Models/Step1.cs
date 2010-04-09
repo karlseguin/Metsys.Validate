@@ -11,5 +11,6 @@ namespace Metsys.Validate.MvcSample
         public string Url { get; set; }
         public string Number { get; set; }
         public string Digits { get; set; }
+        public string Regex { get; set;}
     }
 }

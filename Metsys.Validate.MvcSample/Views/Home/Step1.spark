@@ -47,6 +47,11 @@
         <input type="text" name="Digits" />
     </div>
 
+    <div class="item">
+        <label for="Regex">regex</label>
+        <input type="text" name="Regex" />
+    </div>
+
     <input type="submit" value="next" />
 </form>
 
