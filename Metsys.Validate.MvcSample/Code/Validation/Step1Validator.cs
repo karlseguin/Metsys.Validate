@@ -14,6 +14,8 @@ namespace Metsys.Validate.MvcSample.Validation
             RuleFor(u => u.Number).Required().Pattern(ValidationPattern.Number);
             RuleFor(u => u.Digits).Required().Pattern(ValidationPattern.Digits);
             RuleFor(u => u.Regex).Required().Pattern("^(cat|dog)$").WithMessage("Must be 'cat' or 'dog'");
+            RuleFor(u => u.Original).Required().WithMessage("Please fill this in!");
+            RuleFor(u => u.Compare).EqualTo(s => s.Original).WithMessage("Does not match Original");            
         }
     }
 }

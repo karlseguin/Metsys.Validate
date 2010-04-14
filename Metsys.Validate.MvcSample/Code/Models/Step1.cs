@@ -12,5 +12,7 @@ namespace Metsys.Validate.MvcSample
         public string Number { get; set; }
         public string Digits { get; set; }
         public string Regex { get; set;}
+        public string Original{ get; set;}
+        public string Compare{ get; set;}
     }
 }

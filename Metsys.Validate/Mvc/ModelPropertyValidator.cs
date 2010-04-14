@@ -4,12 +4,13 @@ using Metsys.Validate.Validators;
 
 namespace Metsys.Validate.Mvc
 {  
-    internal class MvcPropertyValidator : ModelValidator
+    internal class ModelPropertyValidator : ModelValidator
     {
         private readonly IValidator _validator;
         private readonly string _message;
-        
-        public MvcPropertyValidator(string message, IValidator validator, ModelMetadata metadata, ControllerContext controllerContext) : base(metadata, controllerContext)
+
+        public ModelPropertyValidator(string message, IValidator validator, ModelMetadata metadata, ControllerContext controllerContext)
+            : base(metadata, controllerContext)
         {
             _validator = validator;
             _message = message;
@@ -17,8 +18,8 @@ namespace Metsys.Validate.Mvc
 
         public override IEnumerable<ModelValidationResult> Validate(object container)
         {
-            var value = Metadata.Model;   
-            if (!_validator.IsValid(value))
+            var value = Metadata.Model;
+            if (!_validator.IsValid(value, container))
             {
                 yield return new ModelValidationResult
                                  {                                     

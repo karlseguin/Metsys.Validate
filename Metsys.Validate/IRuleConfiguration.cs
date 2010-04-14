@@ -13,14 +13,23 @@ namespace Metsys.Validate
         IRuleConfiguration Pattern(ValidationPattern pattern);
         IRuleConfiguration Pattern(string pattern);
         IRuleConfiguration Pattern(Regex pattern);
-        IRuleConfiguration WithMessage(string message);
-        IRuleConfiguration EqualTo<T>(Expression<Func<T, object>> property);
-        
+        IRuleConfiguration WithMessage(string message);        
+    }
+    public interface IRuleConfiguration<T>
+    {
+        IRuleConfiguration<T> EqualTo(Expression<Func<T, object>> property);
+        IRuleConfiguration<T> Required();
+        IRuleConfiguration<T> Length(int minimum);
+        IRuleConfiguration<T> Length(int? minimum, int? maximum);
+        IRuleConfiguration<T> Pattern(ValidationPattern pattern);
+        IRuleConfiguration<T> Pattern(string pattern);
+        IRuleConfiguration<T> Pattern(Regex pattern);
+        IRuleConfiguration<T> WithMessage(string message);        
     }
     
     public class RuleConfiguration : IRuleConfiguration
     {
-        private readonly PropertyValidatorData _data;
+        protected readonly PropertyValidatorData _data;
 
         internal RuleConfiguration(PropertyValidatorData data)
         {
@@ -66,11 +75,57 @@ namespace Metsys.Validate
             _data.Message = message;
             return this;
         }
-
-        public IRuleConfiguration EqualTo<T>(Expression<Func<T, object>> property)
+    }
+    
+    public sealed class RuleConfiguration<T> : RuleConfiguration, IRuleConfiguration<T>
+    {
+        internal RuleConfiguration(PropertyValidatorData data) : base(data){}
+        
+        public IRuleConfiguration<T> EqualTo(Expression<Func<T, object>> property)
         {
             _data.Validators.Add(new PropertyEqualityValidator<T>(property));
             return this;
         }
+
+        public new IRuleConfiguration<T> Required()
+        {
+            base.Required();
+            return this;
+        }
+
+        public new IRuleConfiguration<T> Length(int minimum)
+        {            
+            return Length(minimum, null);
+        }
+
+        public new IRuleConfiguration<T> Length(int? minimum, int? maximum)
+        {
+            base.Length(minimum, maximum);            
+            return this;
+        }
+
+        public new IRuleConfiguration<T> Pattern(ValidationPattern pattern)
+        {
+            base.Pattern(pattern);
+            return this;
+        }
+
+        public new IRuleConfiguration<T> Pattern(string pattern)
+        {
+            base.Pattern(pattern);
+            return this;
+        }
+
+        public new IRuleConfiguration<T> Pattern(Regex pattern)
+        {
+            base.Pattern(pattern);            
+            return this;
+        }
+
+        public new IRuleConfiguration<T> WithMessage(string message)
+        {
+            base.WithMessage(message);
+            return this;
+        }                       
     }
 }

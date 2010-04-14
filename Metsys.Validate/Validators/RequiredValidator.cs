@@ -10,7 +10,7 @@ namespace Metsys.Validate.Validators
         {
             yield return _json;
         }
-        public bool IsValid(object value)
+        public bool IsValid(object value, object container)
         {
             if (value == null)
             {

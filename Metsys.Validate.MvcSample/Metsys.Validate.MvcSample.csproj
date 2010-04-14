@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Code\Models\Step2.cs" />
     <Compile Include="Code\Models\Step3.cs" />
+    <Compile Include="Code\Models\Step4.cs" />
+    <Compile Include="Code\Validation\Step4Validator.cs" />
     <Compile Include="Code\Validation\SharedRules.cs" />
     <Compile Include="Code\Validation\Step1Validator.cs" />
     <Compile Include="Code\Validation\Step3Validator.cs" />
@@ -69,7 +71,6 @@
     <Content Include="assets\css\styles.css" />
     <Content Include="assets\images\header_background.png" />
     <Content Include="assets\js\jquery.js" />
-    <Content Include="assets\js\jquery.validate.js" />
     <Content Include="assets\js\jquery.validator.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -82,6 +83,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Home\Step4.spark" />
     <None Include="Views\Home\Step3.spark" />
     <None Include="Views\Home\Step2.spark" />
     <None Include="Views\Home\Step1.spark" />

@@ -35,8 +35,8 @@ namespace Metsys.Validate.Validators
         {
             yield return _jsonLookup[_pattern];
         }
-        
-        public bool IsValid(object value)
+
+        public bool IsValid(object value, object container)
         {
             if (value == null) { return true; }
             var @string = value.ToString();

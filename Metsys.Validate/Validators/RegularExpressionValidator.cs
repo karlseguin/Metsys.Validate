@@ -11,7 +11,7 @@ namespace Metsys.Validate.Validators
             _expression = expression;
         }
 
-        public bool IsValid(object value)
+        public bool IsValid(object value, object container)
         {
             if (value == null)
             {

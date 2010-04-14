@@ -2,7 +2,7 @@
 {
     $.fn.validator = function(command, options) 
     {
-        var defaults = { showTip: true };
+        var defaults = { showTip: true, errorOnParent: false };
         var opts = $.extend(defaults, command);
         var rules = opts.rules;
 
@@ -19,16 +19,16 @@
                     {
                         var $field = $(field);
                         $field.blur(function()
-                        {
-                            v.validateField($field);
+                        {          
+                           if ($field.hasClass('error')) { v.validateField($field); }
                         });
                     });
                     $form.submit(function()
                     {                    
                         var isValid = true;
                         v.$fields.each(function(i, field)
-                        {
-                            var $field = $(field);
+                        {                           
+                            var $field = $(field);                            
                             if (!v.validateField($field) && isValid)
                             {                            
                                 isValid = false;
@@ -38,10 +38,6 @@
                         return isValid;
                     });
                 },
-                isValid: function($field)
-                {
-                    return !$field.hasClass('error');
-                }, 
                 validateField: function($field) 
                 {
                     var ruleList = rules[$field.attr('name')];
@@ -61,7 +57,7 @@
                     var value = $field.val();
                     var isValid = true;
                     if (rule.required && value.length == 0) { isValid = false; }
-                    else if (!rule.required && value.length == 0) { isValid = true; }
+                    else if (!rule.required && value.length == 0 && !rule.eqTo) { isValid = true; }
                     else if (rule.min && rule.min > value.length) { isValid = false; }
                     // contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
                     else if (rule.email) { isValid = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value); }
@@ -71,6 +67,7 @@
                     else if (rule.digits) { isValid = /^\d+$/.test(value); }
                     else if (rule.creditcard) { isValid = v.validateCreditCard(value); }
                     else if (rule.regex) { isValid = rule.regex.test(value); }
+                    else if (rule.eqTo) { isValid = $('[name$=' + rule.eqTo + ']', $form).val() == value; }
                                                                                 
                     if (!isValid) 
                     {
@@ -90,7 +87,7 @@
            			var nCheck = 0;
            			var nDigit = 0;
            			var bEven = false;
-                    value = value.replace(/\D/g, "");                
+                    value = value.replace(/\D/g, '');                
         			for (var n = value.length - 1; n >= 0; n--) 
         			{
         				var cDigit = value.charAt(n);
@@ -115,7 +112,8 @@
                     }
                     $tip.text(message);
                     $field.addClass('error');
-                    $tip.fadeIn();
+                    if (opts.errorOnParent) { $field.parent().addClass('error'); }
+                    $tip.show();
                 },
                 markAsValid: function($field) 
                 {

@@ -35,77 +35,77 @@ namespace Metsys.Validate.Tests
         [Fact]
         public void InvalidEmailsDoNotValidate()
         {
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("I'm cool"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("@about.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("me@me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("me@.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid(new object()));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("I'm cool", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("@about.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("me@me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Email).IsValid("me@.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid(new object(), null));
         }
         [Fact]
         public void ValidOrEmptyEmailsValidate()
         {
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid(string.Empty));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("prepare@to.laugh"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("goku.ownz@your.ass"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("and@you.likeitalot"));            
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid(string.Empty, null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("prepare@to.laugh", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("goku.ownz@your.ass", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Email).IsValid("and@you.likeitalot", null));            
         }
 
         [Fact]
         public void InvalidUrlDoNotValidate()
         {
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("I'm cool"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("@about.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("me@me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("me@.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid(new object()));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("I'm cool", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("@about.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("me@me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid("me@.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Url).IsValid(new object(), null));
         }
         [Fact]
         public void ValidOrEmptyUrlsValidate()
         {
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid(string.Empty));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://goku.owns"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://www.goku.owns"));            
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://goku.owns/ur?ass=true"));            
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid(string.Empty, null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://goku.owns", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://www.goku.owns", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Url).IsValid("http://goku.owns/ur?ass=true", null));            
         }
 
         [Fact]
         public void InvalidNumberDoNotValidate()
         {
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("I'm cool"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("@about.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("me@me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("me@.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("43.34.23"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid(new object()));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("I'm cool", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("@about.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("me@me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("me@.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid("43.34.23", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Number).IsValid(new object(), null));
         }
         [Fact]
         public void ValidOrEmptyNumberValidate()
         {
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid(string.Empty));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("0"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("23"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("-23"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("-23.4"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("43.343"));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid(string.Empty, null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("0", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("23", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("-23", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("-23.4", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Number).IsValid("43.343", null));
         }
 
         [Fact]
         public void InvalidDigitsDoNotValidate()
         {
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("I'm cool"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("@about.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("me@me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("me@.me"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("43.34.23"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("43.34"));
-            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid(new object()));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("I'm cool", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("@about.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("me@me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("me@.me", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("43.34.23", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid("43.34", null));
+            Assert.Equal(false, new CannedPatternValidator(ValidationPattern.Digits).IsValid(new object(), null));
         }
         [Fact]
         public void ValidOrEmptyDigitsValidate()
         {
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid(string.Empty));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid("0"));
-            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid("23"));            
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid(string.Empty, null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid("0", null));
+            Assert.Equal(true, new CannedPatternValidator(ValidationPattern.Digits).IsValid("23", null));            
         }
     }
 }

@@ -9,23 +9,23 @@ namespace Metsys.Validate.Tests
         [Fact]
         public void ANullValueIsInvalid()
         {
-            Assert.False(new RequiredValidator().IsValid(null));
+            Assert.False(new RequiredValidator().IsValid(null, null));
         }
         [Fact]
         public void AnEmptyStringIsInvalid()
         {
-            Assert.False(new RequiredValidator().IsValid(string.Empty));
+            Assert.False(new RequiredValidator().IsValid(string.Empty, null));
         }
         [Fact]
         public void AnIntegerIsValid()
         {
-            Assert.True(new RequiredValidator().IsValid(0));
-            Assert.True(new RequiredValidator().IsValid(12));
+            Assert.True(new RequiredValidator().IsValid(0, null));
+            Assert.True(new RequiredValidator().IsValid(12, null));
         }
         [Fact]
         public void AStringIsValid()
         {
-            Assert.True(new RequiredValidator().IsValid("abc"));
+            Assert.True(new RequiredValidator().IsValid("abc", null));
         }
 
         [Fact]

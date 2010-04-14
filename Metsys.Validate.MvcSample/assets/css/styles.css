@@ -13,11 +13,11 @@ form{width:500px;margin:0 auto;}
 form .item{position:relative;height:60px;}
 label{display:block;}
 input{padding:5px;}
-input:focus{-moz-box-shadow:0 0 5px #999;-webkit-box-shadow:0 0 5px #999;}
-input.error{-moz-box-shadow:0 0 5px #A00;-webkit-box-shadow:0 0 5px #A00;float:left;}
-input.error:focus{-moz-box-shadow:0 0 5px #f00;-webkit-box-shadow:0 0 5px #f00;}
+input:focus{border:1px solid #999;}
+input.error{border:1px solid #A00;float:left;}
+input.error:focus{border:1px solid #f00;}
 
-label.error,.field-validation-error{font-size:90%;background:#D22;padding:5px 10px;color:#fff;-moz-box-shadow: black 1px 2px 2px;-webkit-box-shadow: black 1px 2px 2px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+label.error,.field-validation-error{color:#D22;margin-top:6px;font-size:90%;}
 label.error{margin-left:210px;}
 .field-validation-error{position:relative;bottom:2px;}
 

@@ -18,11 +18,11 @@ namespace Metsys.Validate
             get { return _data; }
         }
 
-        protected IRuleConfiguration RuleFor(Expression<Func<T, object>> expression)
+        protected IRuleConfiguration<T> RuleFor(Expression<Func<T, object>> expression)
         {            
             var rule = new PropertyValidatorData();
             AddRules(expression.GetName(), new[] { rule });
-            return new RuleConfiguration(rule);
+            return new RuleConfiguration<T>(rule);
         }
         protected void SharedRuleFor(Expression<Func<T, object>> expression, string sharedRuleName)
         {            

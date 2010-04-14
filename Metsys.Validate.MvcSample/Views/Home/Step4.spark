@@ -1,0 +1,16 @@
+<viewdata model="Step4" />
+<div class="desc">
+    This shows how different groups of validators can be given a different message
+</div>
+<form method="post" action="/Home/Step4" id="login">
+    !{Html.EditorFor(model => model)}
+    <input type="submit" value="next" />
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{    
+    var settings = !{Html.RuleFor<Step4>()};    
+    $('#login').validator(settings);
+});
+</script>

@@ -10,22 +10,22 @@ namespace Metsys.Validate.Tests
         [Fact]
         public void ANullValueIsValid()
         {
-            Assert.Equal(true, new RegularExpressionValidator(new Regex("abc")).IsValid(null));
+            Assert.Equal(true, new RegularExpressionValidator(new Regex("abc")).IsValid(null, null));
         }
         [Fact]
         public void ANonStringIsProbablyInvalid()
         {
-            Assert.Equal(false, new RegularExpressionValidator(new Regex("abc")).IsValid(new object()));
+            Assert.Equal(false, new RegularExpressionValidator(new Regex("abc")).IsValid(new object(), null));
         }
         [Fact]
         public void AValueGetsToStringed()
         {
-            Assert.Equal(true, new RegularExpressionValidator(new Regex("^5$")).IsValid(5));
+            Assert.Equal(true, new RegularExpressionValidator(new Regex("^5$")).IsValid(5, null));
         }
         [Fact]
         public void AStringIsInvalidIfPatternDoesntMatch()
         {
-            Assert.Equal(false, new RegularExpressionValidator(new Regex("^5$")).IsValid("4"));
+            Assert.Equal(false, new RegularExpressionValidator(new Regex("^5$")).IsValid("4", null));
         }
         [Fact]
         public void JsonValueContainsIgnoreCaseAttribute()

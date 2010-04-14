@@ -13,9 +13,12 @@ namespace Metsys.Validate.Validators
             _property = property;
         }
 
-        public bool IsValid(object value)
+        public bool IsValid(object value, object container)
         {
-            throw new NotImplementedException();
+            var compareTo = _property.Compile()((T) container);
+            if (value == null && compareTo == null) { return true; }
+            if (value == null) { return false; }
+            return value.Equals(compareTo);
         }
 
         public IEnumerable<KeyValuePair<string, string>> ToJson()

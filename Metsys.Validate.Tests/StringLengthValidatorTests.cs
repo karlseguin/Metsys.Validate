@@ -9,30 +9,30 @@ namespace Mogade.Tests.ValidatorTests
         [Fact]
         public void ANonStringIsAlwaysinvalid()
         {
-            Assert.False(new StringLengthValidator(0, 100).IsValid(new object()));
+            Assert.False(new StringLengthValidator(0, 100).IsValid(new object(), null));
         }        
         [Fact]
         public void AnEmptyStringIsValidWhenMinimumIsNull()
         {
-            Assert.True(new StringLengthValidator(null, 100).IsValid(string.Empty));
+            Assert.True(new StringLengthValidator(null, 100).IsValid(string.Empty, null));
         }
         [Fact]
         public void AStringShorterThanMinimumIsInvalid()
         {
-            Assert.False(new StringLengthValidator(3, 4).IsValid("12"));
-            Assert.False(new StringLengthValidator(2, 4).IsValid("12345"));
+            Assert.False(new StringLengthValidator(3, 4).IsValid("12", null));
+            Assert.False(new StringLengthValidator(2, 4).IsValid("12345", null));
         }
         [Fact]
         public void AStringLongerThanMaximumIsInvalid()
         {
-            Assert.False(new StringLengthValidator(2, 4).IsValid("12345"));
+            Assert.False(new StringLengthValidator(2, 4).IsValid("12345", null));
         }  
         [Fact]
         public void AStringWithintRangeIsValid()
         {
-            Assert.True(new StringLengthValidator(2, 4).IsValid("12"));
-            Assert.True(new StringLengthValidator(2, 4).IsValid("123"));
-            Assert.True(new StringLengthValidator(2, 4).IsValid("1234"));
+            Assert.True(new StringLengthValidator(2, 4).IsValid("12", null));
+            Assert.True(new StringLengthValidator(2, 4).IsValid("123", null));
+            Assert.True(new StringLengthValidator(2, 4).IsValid("1234", null));
         }
 
         [Fact]
