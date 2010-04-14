@@ -54,6 +54,7 @@
     <Compile Include="ClassValidatorData.cs" />
     <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="IRuleConfiguration.cs" />
+    <Compile Include="JsHelper.cs" />
     <Compile Include="Mvc\HtmlRuleContext.cs" />
     <Compile Include="Mvc\MvcModelValidator.cs" />
     <Compile Include="Mvc\HtmlHelperExtensions.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Validators\CannedPatternValidator.cs" />
     <Compile Include="Validators\IDoJavascript.cs" />
     <Compile Include="Validators\IValidator.cs" />
+    <Compile Include="Validators\PropertyEqualityValidator.cs" />
     <Compile Include="Validators\RegularExpressionValidator.cs" />
     <Compile Include="Validators\RequiredValidator.cs" />
     <Compile Include="Validators\StringLengthValidator.cs" />

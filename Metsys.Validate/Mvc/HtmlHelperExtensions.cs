@@ -62,7 +62,7 @@ namespace Metsys.Validate.Mvc
                 {
                     if (!string.IsNullOrEmpty(data.Message))
                     {
-                        sb.AppendFormat("message:'{0}',", Escape(data.Message));
+                        sb.AppendFormat("message:'{0}',", JsHelper.Escape(data.Message));
                     }
                     sb.Insert(start, '{');                   
                     sb.Remove(sb.Length - 1, 1);
@@ -76,12 +76,7 @@ namespace Metsys.Validate.Mvc
                 sb.Append(']');
             }
         
-        }
-
-        private static string Escape(string @string)
-        {
-            return string.IsNullOrEmpty(@string) ? string.Empty : @string.Replace("'", "\\'");
-        }
+        }        
         private static string SafeKey(HtmlRuleContext context)
         {
             return string.IsNullOrEmpty(context.Prefix) ? context.Key : string.Format("\"{0}.{1}\"", context.Prefix, context.Key);            

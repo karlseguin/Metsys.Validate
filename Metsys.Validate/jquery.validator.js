@@ -2,7 +2,7 @@
 {
     $.fn.validator = function(command, options) 
     {
-        var defaults = { showTip: true };
+        var defaults = { showTip: true, errorOnParent: false };
         var opts = $.extend(defaults, command);
         var rules = opts.rules;
 
@@ -27,8 +27,8 @@
                     {                    
                         var isValid = true;
                         v.$fields.each(function(i, field)
-                        {
-                            var $field = $(field);
+                        {                           
+                            var $field = $(field);                            
                             if (!v.validateField($field) && isValid)
                             {                            
                                 isValid = false;
@@ -67,6 +67,7 @@
                     else if (rule.digits) { isValid = /^\d+$/.test(value); }
                     else if (rule.creditcard) { isValid = v.validateCreditCard(value); }
                     else if (rule.regex) { isValid = rule.regex.test(value); }
+                    else if (rule.eqTo) { isValid = $('[name$=' + rule.eqTo + ']', $form).val() == value; }
                                                                                 
                     if (!isValid) 
                     {
@@ -86,7 +87,7 @@
            			var nCheck = 0;
            			var nDigit = 0;
            			var bEven = false;
-                    value = value.replace(/\D/g, "");                
+                    value = value.replace(/\D/g, '');                
         			for (var n = value.length - 1; n >= 0; n--) 
         			{
         				var cDigit = value.charAt(n);
@@ -111,7 +112,8 @@
                     }
                     $tip.text(message);
                     $field.addClass('error');
-                    $tip.fadeIn();
+                    if (opts.errorOnParent) { $field.parent().addClass('error'); }
+                    $tip.show();
                 },
                 markAsValid: function($field) 
                 {

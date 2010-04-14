@@ -45,6 +45,7 @@
     <Compile Include="ConfigurationTests.cs" />
     <Compile Include="CannedPatternValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyEqualityValidatorTests.cs" />
     <Compile Include="RegularExpressionValidatorTests.cs" />
     <Compile Include="RequiredValidatorTests.cs" />
     <Compile Include="StringLengthValidatorTests.cs" />

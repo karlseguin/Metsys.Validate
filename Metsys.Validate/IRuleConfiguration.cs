@@ -1,10 +1,10 @@
+using System;
+using System.Linq.Expressions;
 using Metsys.Validate.Validators;
 using System.Text.RegularExpressions;
 
 namespace Metsys.Validate
 {
-    using System;
-
     public interface IRuleConfiguration
     {
         IRuleConfiguration Required();
@@ -14,6 +14,7 @@ namespace Metsys.Validate
         IRuleConfiguration Pattern(string pattern);
         IRuleConfiguration Pattern(Regex pattern);
         IRuleConfiguration WithMessage(string message);
+        IRuleConfiguration EqualTo<T>(Expression<Func<T, object>> property);
         
     }
     
@@ -63,6 +64,12 @@ namespace Metsys.Validate
         public IRuleConfiguration WithMessage(string message)
         {            
             _data.Message = message;
+            return this;
+        }
+
+        public IRuleConfiguration EqualTo<T>(Expression<Func<T, object>> property)
+        {
+            _data.Validators.Add(new PropertyEqualityValidator<T>(property));
             return this;
         }
     }
