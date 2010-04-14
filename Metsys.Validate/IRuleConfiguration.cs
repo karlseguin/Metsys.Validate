@@ -13,18 +13,21 @@ namespace Metsys.Validate
         IRuleConfiguration Pattern(ValidationPattern pattern);
         IRuleConfiguration Pattern(string pattern);
         IRuleConfiguration Pattern(Regex pattern);
-        IRuleConfiguration WithMessage(string message);        
+        IRuleConfiguration WithMessage(string message);
+        IRuleConfiguration EqualTo(object o);
     }
     public interface IRuleConfiguration<T>
     {
         IRuleConfiguration<T> EqualTo(Expression<Func<T, object>> property);
+        
         IRuleConfiguration<T> Required();
         IRuleConfiguration<T> Length(int minimum);
         IRuleConfiguration<T> Length(int? minimum, int? maximum);
         IRuleConfiguration<T> Pattern(ValidationPattern pattern);
         IRuleConfiguration<T> Pattern(string pattern);
         IRuleConfiguration<T> Pattern(Regex pattern);
-        IRuleConfiguration<T> WithMessage(string message);        
+        IRuleConfiguration<T> WithMessage(string message);
+        IRuleConfiguration<T> EqualTo(object o);
     }
     
     public class RuleConfiguration : IRuleConfiguration
@@ -73,6 +76,12 @@ namespace Metsys.Validate
         public IRuleConfiguration WithMessage(string message)
         {            
             _data.Message = message;
+            return this;
+        }
+
+        public IRuleConfiguration EqualTo(object o)
+        {
+            _data.Validators.Add(new ValueEqualityValidator(o));
             return this;
         }
     }
@@ -126,6 +135,11 @@ namespace Metsys.Validate
         {
             base.WithMessage(message);
             return this;
-        }                       
+        }
+        public IRuleConfiguration<T> EqualTo(object o)
+        {
+            base.EqualTo(o);
+            return this;
+        }
     }
 }

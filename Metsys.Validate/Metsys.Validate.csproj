@@ -71,6 +71,8 @@
     <Compile Include="Validators\RegularExpressionValidator.cs" />
     <Compile Include="Validators\RequiredValidator.cs" />
     <Compile Include="Validators\StringLengthValidator.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="Validators\ValueEqualityValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="jquery.charcount.js" />

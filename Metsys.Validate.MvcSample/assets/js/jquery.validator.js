@@ -12,7 +12,7 @@
             var $form = $(this);
             var v =
             {
-                $fields: $('input,select,textarea', $form),
+                $fields: $(':text,:password,select,textarea', $form),                
                 initialize: function()
                 {
                     v.$fields.each(function(i, field)
@@ -22,21 +22,27 @@
                         {          
                            if ($field.hasClass('error')) { v.validateField($field); }
                         });
-                    });
+                    });       
                     $form.submit(function()
                     {                    
                         var isValid = true;
                         v.$fields.each(function(i, field)
-                        {                           
-                            var $field = $(field);                            
+                        {
+                            var $field = $(field);
                             if (!v.validateField($field) && isValid)
-                            {                            
+                            {
                                 isValid = false;
                                 $field.focus();
-                            }
+                            }                            
                         });
                         return isValid;
                     });
+                },
+                getCheckboxGroups: function()
+                {
+                    var names = new Array();
+                    
+                    return names;
                 },
                 validateField: function($field) 
                 {
@@ -55,8 +61,8 @@
                 {
                     if (!rule || $field.attr('disabled')) { return true; }
                     var value = $field.val();
-                    var isValid = true;
-                    if (rule.required && value.length == 0) { isValid = false; }
+                    var isValid = true;                   
+                    if (rule.required && value.length == 0) { isValid = false; }                    
                     else if (!rule.required && value.length == 0 && !rule.eqTo) { isValid = true; }
                     else if (rule.min && rule.min > value.length) { isValid = false; }
                     // contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
@@ -68,6 +74,7 @@
                     else if (rule.creditcard) { isValid = v.validateCreditCard(value); }
                     else if (rule.regex) { isValid = rule.regex.test(value); }
                     else if (rule.eqTo) { isValid = $('[name$=' + rule.eqTo + ']', $form).val() == value; }
+                    else if (rule.eq) { isValid = value == rule.eq; }                    
                                                                                 
                     if (!isValid) 
                     {
@@ -78,7 +85,7 @@
                         v.markAsValid($field);
                     }
                     return isValid;
-                },
+                }, 
         		//based on http://en.wikipedia.org/wiki/Luhn
                 validateCreditCard: function(value)
                 {
@@ -111,7 +118,7 @@
                         $field.after($tip);
                     }
                     $tip.text(message);
-                    $field.addClass('error');
+                    $field.addClass('error');                    
                     if (opts.errorOnParent) { $field.parent().addClass('error'); }
                     $tip.show();
                 },

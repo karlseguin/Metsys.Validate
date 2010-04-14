@@ -52,16 +52,6 @@
         <input type="text" name="Regex" />
     </div>
 
-    <div class="item">
-        <label for="Original">original</label>
-        <input type="text" name="Original" />
-    </div>
-
-    <div class="item">
-        <label for="Compare">compare</label>
-        <input type="text" name="Compare" />
-    </div>
-
     <input type="submit" value="next" />
 </form>
 

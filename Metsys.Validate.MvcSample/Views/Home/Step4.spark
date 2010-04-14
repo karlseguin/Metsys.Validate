@@ -1,6 +1,6 @@
 <viewdata model="Step4" />
 <div class="desc">
-    This shows how different groups of validators can be given a different message
+    This shows different ways values can be compared to other values, or properties
 </div>
 <form method="post" action="/Home/Step4" id="login">
     !{Html.EditorFor(model => model)}
