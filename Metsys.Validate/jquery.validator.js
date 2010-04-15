@@ -1,9 +1,8 @@
 (function($) 
 {
-    $.fn.validator = function(command, options) 
-    {
-        var defaults = { showTip: true, errorOnParent: false };
-        var opts = $.extend(defaults, command);
+    $.fn.validator = function(options) 
+    {        
+        var opts = $.extend($.fn.validator.defaults, options);
         var rules = opts.rules;
 
         return this.each(function() 
@@ -126,3 +125,9 @@
         });
     };
 })(jQuery);
+
+$.fn.validator.defaults = 
+{
+    showTip: true, 
+    errorOnParent: false
+};
