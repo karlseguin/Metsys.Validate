@@ -4,13 +4,24 @@ using Metsys.Validate.Validators;
 
 namespace Metsys.Validate.Mvc
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class HtmlHelperExtensions
     {
         public static string RuleFor<T>(this HtmlHelper html)
         {
-            return html.RuleFor<T>(null);
+            return html.RuleFor<T>(null, false);
+        }
+        public static string RuleFor<T>(this HtmlHelper html, bool includeServerSide)
+        {
+            return html.RuleFor<T>(null, includeServerSide);
         }
         public static string RuleFor<T>(this HtmlHelper html, string prefix)
+        {
+            return RuleFor<T>(html, prefix, false);
+        }
+        public static string RuleFor<T>(this HtmlHelper html, string prefix, bool includeServerSide)
         {
             var validations = Validator.RulesFor<T>();
             if (validations == null || validations.Rules.Count == 0) { return "{}"; }
@@ -33,11 +44,14 @@ namespace Metsys.Validate.Mvc
                 context.RulesBuilder.Insert(0, "rules:{");
                 context.RulesBuilder.Remove(context.RulesBuilder.Length - 1, 1);
                 context.RulesBuilder.Append('}');
-            }            
+            }
+            if (includeServerSide)
+            {
+                IncludeModelStateError(html.ViewData.ModelState, context);
+            }
             return string.Concat('{', context.RulesBuilder.ToString(), '}');
         }
 
- 
         private static void RuleFor(HtmlRuleContext context)
         {
             var sb = context.RulesBuilder;
@@ -74,11 +88,29 @@ namespace Metsys.Validate.Mvc
                 sb.Append(']');
             }
         
-        }        
+        }
+        
+        private static void IncludeModelStateError(IEnumerable<KeyValuePair<string, ModelState>> dictionary, HtmlRuleContext context)
+        {
+            var sb = context.RulesBuilder;
+            var start = sb.Length;
+            foreach(var kvp in dictionary)
+            {
+                if (kvp.Value.Errors.Count == 0){ continue; }
+                context.Key = kvp.Key;
+                sb.AppendFormat("{0}: '{1}',", SafeKey(context), JsHelper.Escape(Validator.MessageCallback(kvp.Value.Errors[0].ErrorMessage)));
+            }
+            if (sb.Length > start)
+            {
+                sb.Remove(sb.Length - 1, 1);
+                sb.Insert(start, ", init:{");
+                sb.Append('}');
+            }
+        }
         private static string SafeKey(HtmlRuleContext context)
         {
-            return string.IsNullOrEmpty(context.Prefix) ? context.Key : string.Format("\"{0}.{1}\"", context.Prefix, context.Key);            
-        }        
+            return string.IsNullOrEmpty(context.Prefix) ? context.Key : string.Format("\"{0}.{1}\"", context.Prefix, context.Key);
+        }
 
     }
 }

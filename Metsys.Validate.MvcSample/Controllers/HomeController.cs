@@ -64,6 +64,17 @@ namespace Metsys.Validate.MvcSample.Controllers
         public ActionResult Step5(Step5 step4)
         {
             return View();
-        }       
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ViewResult Step6()
+        {
+            return View();
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Step6(Step5 step4)
+        {            
+            return View();
+        }     
     }
 }

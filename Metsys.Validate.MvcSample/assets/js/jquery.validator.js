@@ -15,6 +15,11 @@
                 $fields: $(':text,:password,select,textarea', $form),                
                 initialize: function()
                 {
+                    if (opts.init)
+                    {
+                        v.initializeInvalidFields();
+                    }
+                    
                     v.$fields.each(function(i, field)
                     {
                         var $field = $(field);
@@ -37,12 +42,19 @@
                         });
                         return isValid;
                     });
-                },
+                },                
                 getCheckboxGroups: function()
                 {
                     var names = new Array();
                     
                     return names;
+                },
+                initializeInvalidFields: function()
+                {
+                    for(var name in opts.init)
+                    {
+                        v.markAsInvalid($('[name=' + name +']', $form), opts.init[name]);
+                    }
                 },
                 validateField: function($field) 
                 {
@@ -110,6 +122,7 @@
                 },
                 markAsInvalid: function($field, message) 
                 {
+                    if (!$field) { return; }
                     if (!message){message = 'a';}
                     var $tip = $field.siblings('.error');
                     if ($tip.length == 0) 

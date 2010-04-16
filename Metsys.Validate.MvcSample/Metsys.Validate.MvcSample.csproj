@@ -81,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Home\Step6.spark" />
     <None Include="Views\Home\Step5.spark" />
     <None Include="Views\Home\Step4.spark" />
     <None Include="Views\Home\Step3.spark" />
