@@ -1,0 +1,25 @@
+<viewdata model="Step5" />
+<div class="desc">
+    Populates error messages on post-back
+</div>
+<form method="post" action="/Home/Step6" id="login">
+    <div class="item">
+        <label for="Original">original</label>
+        <input type="text" name="Original" />
+    </div>
+
+    <div class="item">
+        <label for="New">new</label>
+        <input type="text" name="New" />
+    </div>
+    <input type="submit" value="next" />
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{    
+    var settings = !{Html.RuleFor<Step5>(true)};
+    settings.rules = {}; //clear our client-side rules just for demo purposes
+    $('#login').validator(settings);
+});
+</script>
