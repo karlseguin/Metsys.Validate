@@ -1,0 +1,17 @@
+<viewdata model="Step5" />
+<div class="desc">
+    This shows how a shared rule's message can be overwriten. The New error message overwrites the original message and provides
+    additional details.
+</div>
+<form method="post" action="/Home/Step5" id="login">
+    !{Html.EditorFor(model => model)}
+    <input type="submit" value="next" />
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{    
+    var settings = !{Html.RuleFor<Step5>()};    
+    $('#login').validator(settings);
+});
+</script>

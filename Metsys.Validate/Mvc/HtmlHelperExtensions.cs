@@ -1,7 +1,5 @@
-using System;
 using System.Text;
 using System.Web.Mvc;
-using System.Collections.Generic;
 using Metsys.Validate.Validators;
 
 namespace Metsys.Validate.Mvc
@@ -35,7 +33,7 @@ namespace Metsys.Validate.Mvc
                 context.RulesBuilder.Insert(0, "rules:{");
                 context.RulesBuilder.Remove(context.RulesBuilder.Length - 1, 1);
                 context.RulesBuilder.Append('}');
-            }
+            }            
             return string.Concat('{', context.RulesBuilder.ToString(), '}');
         }
 

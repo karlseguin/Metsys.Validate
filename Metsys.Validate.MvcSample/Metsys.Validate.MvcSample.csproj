@@ -53,13 +53,11 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Models\Step5.cs" />
     <Compile Include="Code\Models\Step2.cs" />
     <Compile Include="Code\Models\Step3.cs" />
     <Compile Include="Code\Models\Step4.cs" />
-    <Compile Include="Code\Validation\Step4Validator.cs" />
     <Compile Include="Code\Validation\SharedRules.cs" />
-    <Compile Include="Code\Validation\Step1Validator.cs" />
-    <Compile Include="Code\Validation\Step3Validator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -83,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Home\Step5.spark" />
     <None Include="Views\Home\Step4.spark" />
     <None Include="Views\Home\Step3.spark" />
     <None Include="Views\Home\Step2.spark" />
