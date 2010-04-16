@@ -1,9 +1,10 @@
 using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using Metsys.Validate.Validators;
 
 namespace Metsys.Validate
-{
+{    
     internal interface IClassValidator
     {
         ClassValidatorData Data{ get;}
@@ -24,15 +25,28 @@ namespace Metsys.Validate
             AddRules(expression.GetName(), new[] { rule });
             return new RuleConfiguration<T>(rule);
         }
-        protected void SharedRuleFor(Expression<Func<T, object>> expression, string sharedRuleName)
+        protected ISharedRuleConfiguration SharedRuleFor(Expression<Func<T, object>> expression, string sharedRuleName)
         {            
             var sharedRules = RuleSet.GetRules(sharedRuleName);
             if (sharedRules == null)
             {
                 throw new ArgumentException(string.Format("No shared rule with the name {0} exists", sharedRuleName));
             }
-            AddRules(expression.GetName(), sharedRules);            
-        }   
+            var name = expression.GetName();
+            AddRules(name, sharedRules);  
+            return new SharedRuleConfiguration(s => SetSharedMessage(name, s));          
+        }
+        
+        private void SetSharedMessage(string name, string message)
+        {
+            var rules = Data.Rules[name];
+            for(var i = 0; i< rules.Count; ++i)
+            {
+                var validators = rules[i].Validators;
+                rules[i] = new PropertyValidatorData{Message = message};                
+                ((List<IValidator>)rules[i].Validators).AddRange(validators);
+            }
+        }
         
         private void AddRules(string name, IEnumerable<PropertyValidatorData> rules)
         {

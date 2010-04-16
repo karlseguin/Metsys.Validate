@@ -55,6 +55,7 @@
     <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="IRuleConfiguration.cs" />
     <Compile Include="Helpers\JsHelper.cs" />
+    <Compile Include="ISharedRuleConfiguration.cs" />
     <Compile Include="Mvc\HtmlRuleContext.cs" />
     <Compile Include="Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\ModelPropertyValidator.cs" />
