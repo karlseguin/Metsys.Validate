@@ -20,7 +20,11 @@ namespace Metsys.Validate.Validators
         public IEnumerable<KeyValuePair<string, string>> ToJson()
         {
             string compareTo;
-            if (ValidationHelper.IsNumber(_value))
+            if (_value is bool)
+            {
+                compareTo = (bool) _value ? "'true'" : "'false'";
+            }
+            else if (ValidationHelper.IsNumber(_value))
             {
                 compareTo = _value.ToString();
             }

@@ -1,9 +1,8 @@
 (function($) 
 {
-    $.fn.validator = function(command, options) 
-    {
-        var defaults = { showTip: true, errorOnParent: false };
-        var opts = $.extend(defaults, command);
+    $.fn.validator = function(options) 
+    {        
+        var opts = $.extend($.fn.validator.defaults, options);
         var rules = opts.rules;
 
         return this.each(function() 
@@ -12,13 +11,19 @@
             var $form = $(this);
             var v =
             {
-                $fields: $(':text,:password,select,textarea', $form),                
+                $fields: $(':text,:password,select,textarea', $form),
+                checkboxes: new Array(),
                 initialize: function()
                 {
                     if (opts.init)
                     {
                         v.initializeInvalidFields();
                     }
+                    $(':checkbox', $form).each(function(i, field)
+                    {
+                        var name = field.name;
+                        if ($.inArray(name, v.checkboxes) == -1) { v.checkboxes.push(name);}
+                    });
                     
                     v.$fields.each(function(i, field)
                     {
@@ -27,27 +32,28 @@
                         {          
                            if ($field.hasClass('error')) { v.validateField($field); }
                         });
-                    });       
+                    });
                     $form.submit(function()
                     {                    
                         var isValid = true;
                         v.$fields.each(function(i, field)
-                        {
-                            var $field = $(field);
+                        {                           
+                            var $field = $(field);                            
                             if (!v.validateField($field) && isValid)
-                            {
+                            {                            
                                 isValid = false;
                                 $field.focus();
-                            }                            
+                            }
                         });
+                        for(var i = 0; i < v.checkboxes.length; ++i)
+                        {
+                            if (!v.validateCheckbox(v.checkboxes[i]) && isValid)
+                            {
+                                isValid = false;
+                            }
+                        }
                         return isValid;
                     });
-                },                
-                getCheckboxGroups: function()
-                {
-                    var names = new Array();
-                    
-                    return names;
                 },
                 initializeInvalidFields: function()
                 {
@@ -55,6 +61,19 @@
                     {
                         v.markAsInvalid($('[name=' + name +']', $form), opts.init[name]);
                     }
+                },    
+                validateCheckbox: function(name)
+                {
+                    var ruleList = rules[name];
+                    if (!ruleList){return true;}   
+                    for(var i = 0; i < ruleList.length; ++i)
+                    {
+                        if (!v.validateCheckboxesWithRule(name, ruleList[i]))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;                
                 },
                 validateField: function($field) 
                 {
@@ -73,8 +92,8 @@
                 {
                     if (!rule || $field.attr('disabled')) { return true; }
                     var value = $field.val();
-                    var isValid = true;                   
-                    if (rule.required && value.length == 0) { isValid = false; }                    
+                    var isValid = true;
+                    if (rule.required && value.length == 0) { isValid = false; }
                     else if (!rule.required && value.length == 0 && !rule.eqTo) { isValid = true; }
                     else if (rule.min && rule.min > value.length) { isValid = false; }
                     // contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
@@ -86,18 +105,27 @@
                     else if (rule.creditcard) { isValid = v.validateCreditCard(value); }
                     else if (rule.regex) { isValid = rule.regex.test(value); }
                     else if (rule.eqTo) { isValid = $('[name$=' + rule.eqTo + ']', $form).val() == value; }
-                    else if (rule.eq) { isValid = value == rule.eq; }                    
+                    else if (rule.eq) { isValid = value == rule.eq; }
                                                                                 
-                    if (!isValid) 
-                    {
-                        v.markAsInvalid($field, rule.message);
-                    }
-                    else 
-                    {
-                        v.markAsValid($field);
-                    }
+                    if (!isValid) { v.markAsInvalid($field, rule.message); }
+                    else { v.markAsValid($field); }
                     return isValid;
-                }, 
+                },
+                validateCheckboxesWithRule: function(name, rule)
+                {
+                    var values = new Array();   
+                    var $checkboxes = $('[name=' + name +']', $form);
+                    $checkboxes.filter(':checked').each(function(i, field)
+                    {
+                        values.push(field.value);
+                    });                
+                    var isValid = true;
+                    if (rule.eq) { isValid = $.inArray(rule.eq, values) != -1; }
+                    
+                    if (!isValid) { v.markAsInvalid($checkboxes.filter(':first'), rule.message); }
+                    else { v.markAsValid($checkboxes.filter(':first')); }
+                    return isValid;
+                },
         		//based on http://en.wikipedia.org/wiki/Luhn
                 validateCreditCard: function(value)
                 {
@@ -121,24 +149,23 @@
         			return (nCheck % 10) == 0;                
                 },
                 markAsInvalid: function($field, message) 
-                {
-                    if (!$field) { return; }
-                    if (!message){message = 'a';}
+                {                   
                     var $tip = $field.siblings('.error');
-                    if ($tip.length == 0) 
+                    if ($tip.length == 0 && message) 
                     {
                         $tip = $('<label>').addClass('error').attr('for', $field.attr('name'));                        
                         $field.after($tip);
                     }
                     $tip.text(message);
-                    $field.addClass('error');                    
-                    if (opts.errorOnParent) { $field.parent().addClass('error'); }
+                    $field.addClass('error');
+                    if (opts.errorOnParent) { $field.parent().addClass($field.is(':checkbox') ? 'checkError' : 'error'); }
                     $tip.show();
                 },
                 markAsValid: function($field) 
                 {
                     $field.siblings('.error').remove();
                     $field.removeClass('error');
+                    if (opts.errorOnParent) { $field.parent().removeClass($field.is(':checkbox') ? 'checkError' : 'error'); }                    
                 }
             }
             this.validator = v;
@@ -146,3 +173,9 @@
         });
     };
 })(jQuery);
+
+$.fn.validator.defaults = 
+{
+    showTip: true, 
+    errorOnParent: false
+};

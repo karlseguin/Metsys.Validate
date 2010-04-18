@@ -1,12 +1,10 @@
 using System.Text;
 using System.Web.Mvc;
 using Metsys.Validate.Validators;
+using System.Collections.Generic;
 
 namespace Metsys.Validate.Mvc
 {
-    using System;
-    using System.Collections.Generic;
-
     public static class HtmlHelperExtensions
     {
         public static string RuleFor<T>(this HtmlHelper html)
@@ -50,6 +48,16 @@ namespace Metsys.Validate.Mvc
                 IncludeModelStateError(html.ViewData.ModelState, context);
             }
             return string.Concat('{', context.RulesBuilder.ToString(), '}');
+        }
+
+        public static string ErrorFor(this HtmlHelper html, string name)
+        {
+            ModelState state;
+            if (!html.ViewData.ModelState.TryGetValue(name, out state) || state.Errors.Count == 0)
+            {
+                return string.Empty;
+            }
+            return string.Format("<label for=\"{0}\" class=\"error\">{1}</label>", name, state.Errors[0].ErrorMessage);
         }
 
         private static void RuleFor(HtmlRuleContext context)
