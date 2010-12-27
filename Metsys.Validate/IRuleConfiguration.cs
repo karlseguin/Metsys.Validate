@@ -64,7 +64,7 @@ namespace Metsys.Validate
 
         public IRuleConfiguration Pattern(string pattern)
         {
-            return Pattern(new Regex(pattern, RegexOptions.IgnoreCase));
+            return Pattern(new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled));
         }
 
         public IRuleConfiguration Pattern(Regex pattern)

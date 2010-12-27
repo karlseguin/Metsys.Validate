@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metsys.Validate", "Metsys.Validate\Metsys.Validate.csproj", "{17B0CB03-7272-4D9F-ACB3-DF958DFFC458}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metsys.Validate.MvcSample", "Metsys.Validate.MvcSample\Metsys.Validate.MvcSample.csproj", "{774BB116-14D0-4F0A-AA13-4FAA7CCC7E0B}"
