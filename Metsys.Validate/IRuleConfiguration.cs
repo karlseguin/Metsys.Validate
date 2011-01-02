@@ -15,6 +15,8 @@ namespace Metsys.Validate
         IRuleConfiguration Pattern(Regex pattern);
         IRuleConfiguration WithMessage(string message);
         IRuleConfiguration EqualTo(object o);
+        IRuleConfiguration Between(int minimum, int maximum);
+        IRuleConfiguration Between(int minimum, int maximum, bool inclusive);
     }
     public interface IRuleConfiguration<T>
     {
@@ -28,6 +30,8 @@ namespace Metsys.Validate
         IRuleConfiguration<T> Pattern(Regex pattern);
         IRuleConfiguration<T> WithMessage(string message);
         IRuleConfiguration<T> EqualTo(object o);
+        IRuleConfiguration<T> Between(int minimum, int maximum);
+        IRuleConfiguration<T> Between(int minimum, int maximum, bool inclusive);
     }
     
     public class RuleConfiguration : IRuleConfiguration
@@ -82,6 +86,18 @@ namespace Metsys.Validate
         public IRuleConfiguration EqualTo(object o)
         {
             _data.Validators.Add(new ValueEqualityValidator(o));
+            return this;
+        }
+
+        public IRuleConfiguration Between(int minimum, int maximum)
+        {
+            _data.Validators.Add(new BetweenValidator(minimum, minimum));
+            return this;
+        }
+
+        public IRuleConfiguration Between(int minimum, int maximum, bool inclusive)
+        {
+            _data.Validators.Add(new BetweenValidator(minimum, minimum, inclusive));
             return this;
         }
     }
@@ -139,6 +155,18 @@ namespace Metsys.Validate
         public IRuleConfiguration<T> EqualTo(object o)
         {
             base.EqualTo(o);
+            return this;
+        }
+
+        public IRuleConfiguration<T> Between(int minimum, int maximum)
+        {
+            _data.Validators.Add(new BetweenValidator(minimum, maximum));
+            return this;
+        }
+
+        public IRuleConfiguration<T> Between(int minimum, int maximum, bool inclusive)
+        {
+            _data.Validators.Add(new BetweenValidator(minimum, maximum, inclusive));
             return this;
         }
     }

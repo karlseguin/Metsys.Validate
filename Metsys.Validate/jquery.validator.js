@@ -106,6 +106,8 @@
                     else if (rule.regex) { isValid = rule.regex.test(value); }
                     else if (rule.eqTo) { isValid = $('[name$=' + rule.eqTo + ']', $form).val() == value; }
                     else if (rule.eq) { isValid = value == rule.eq; }
+                    else if (rule.bexc) { isValid = value > rule.bexc[0] && value < rule.bexc[1]; }
+                    else if (rule.binc) { isValid = value >= rule.bexc[0] && value <= rule.bexc[1]; }
                                                                                 
                     if (!isValid) { v.markAsInvalid($field, rule.message); }
                     else { v.markAsValid($field); }

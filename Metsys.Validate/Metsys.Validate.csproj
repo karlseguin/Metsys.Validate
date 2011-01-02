@@ -81,6 +81,7 @@
     <Compile Include="RuleSet.cs" />
     <Compile Include="ValidationPattern.cs" />
     <Compile Include="Validator.cs" />
+    <Compile Include="Validators\BetweenValidator.cs" />
     <Compile Include="Validators\CannedPatternValidator.cs" />
     <Compile Include="Validators\IDoJavascript.cs" />
     <Compile Include="Validators\IValidator.cs" />

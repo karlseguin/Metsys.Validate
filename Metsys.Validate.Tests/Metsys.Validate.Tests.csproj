@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFixture.cs" />
+    <Compile Include="BetweenValidatorTests.cs" />
     <Compile Include="ConfigurationTests.cs" />
     <Compile Include="CannedPatternValidatorTests.cs" />
     <Compile Include="ValueEqualityValidatorTests.cs" />
